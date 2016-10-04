@@ -1,6 +1,4 @@
 from timekeeper import *
-from project import *
-from save_object import *
 
 
 def main():
