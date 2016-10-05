@@ -1,5 +1,8 @@
 from timekeeper import *
 import argparse
+import sys
+import time
+import threading
 
 
 def get_args():
@@ -11,14 +14,31 @@ def get_args():
     return vars(options)
 
 
+def input_thread_fkt(w):
+    input()
+    w.append(None)
+
+
 def main():
+    w = []
     options = get_args()
     debug_enabled = options.get("debug")
     arg_project_name = options.get("project")
     arg_task_name = options.get("task")
     timekeeper = TimeKeeper()
-    timekeeper.start(arg_project_name, arg_task_name)
-    input("Press RETURN to stop the task\n")
+    thread = threading.Thread(target=timekeeper.start, args=(arg_project_name, arg_task_name))
+    thread.setDaemon(True)
+    thread.start()
+
+    input_thread = threading.Thread(target=input_thread_fkt, args=(w, ))
+    input_thread.start()
+    while True:
+        sys.stdout.write(timekeeper.current_project.current_task.get_run_time())
+        sys.stdout.flush()
+        time.sleep(1)
+        if w:
+            break
+
     timekeeper.stop()
     timekeeper.test()
 

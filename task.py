@@ -1,5 +1,6 @@
 import time
 import uuid
+import datetime
 
 
 class Task:
@@ -17,3 +18,6 @@ class Task:
     def stop(self):
         self.end_time = int(time.time())
         self.duration = self.end_time - self.start_time
+
+    def get_run_time(self):
+        return "\r"+str(time.strftime('%H:%M:%S', time.gmtime(int(time.time()) - self.start_time)))
