@@ -42,7 +42,7 @@ def main():
 
     timekeeper.stop()
     timekeeper.test()
-    thread.join()
+    timekeeper.save_json()
 
 if __name__ == '__main__':
     main()

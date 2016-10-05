@@ -44,12 +44,29 @@ class TimeKeeper:
                 print(task.name + " " + str(task.start_time))
 
     def get_all_tasks(self):
-        save_objects = None
-
-        return save_objects
+        task_list = []
+        for project in self.projects:
+            for task in project.task_list:
+                task_list.append(task)
+        return task_list
 
     def save_json(self):
-        pass
+        json_project_array = []
+        for project in self.projects:
+            current_json_project = project.to_json()
+            json_project_array.append(current_json_project)
+
+        json_task_array = []
+        for task in self.get_all_tasks():
+            current_json_task = task.to_json()
+            json_task_array.append(current_json_task)
+
+        save_object = {
+            "saveProjectArray": json_project_array,
+            "saveObjectArray": json_task_array
+        }
+        self.json_helper.filename = "test.json"
+        self.json_helper.save(save_object)
 
     def load_json(self):
         """loads objects from json into memory"""
@@ -57,9 +74,14 @@ class TimeKeeper:
         projects_json = self.json["saveProjectArray"]
         """all tasks from all projects"""
         task_list_json = self.json["saveObjectArray"]
-        for project_json in projects_json:
-            project_name = project_json["name"]
+        for current_project_json in projects_json:
+            project_name = current_project_json["name"]
             project = Project(project_name)
+            try:
+                project.frozen = current_project_json["frozen"]
+                project.tags = current_project_json["tags"]
+            except KeyError:
+                pass
             for task_json in task_list_json:
                 if task_json["projectName"] == project_name:
                     task_name = task_json["taskName"]
@@ -67,7 +89,7 @@ class TimeKeeper:
                     end_time = self.get_time_in_ms(task_json["endTime"])
                     duration = task_json["durationInSec"]
                     task_uuid = task_json["UUID"]
-                    task = Task(task_name)
+                    task = Task(task_name, project_name)
                     task.start_time = start_time
                     task.end_time = end_time
                     task.duration = duration

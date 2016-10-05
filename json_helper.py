@@ -14,3 +14,4 @@ class JsonHelper:
     def save(self, content):
         with open(self.filename, "w") as f:
             f.write(json.dumps(content))
+

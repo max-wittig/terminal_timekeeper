@@ -3,3 +3,5 @@
 .idea/
 terminal_timekeeper.iml
 timekeeper.json
+__pycache__/
+/test.json
