@@ -37,10 +37,12 @@ def main():
         sys.stdout.flush()
         time.sleep(1)
         if w:
+            input_thread.join()
             break
 
     timekeeper.stop()
     timekeeper.test()
+    thread.join()
 
 if __name__ == '__main__':
     main()

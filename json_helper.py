@@ -11,6 +11,6 @@ class JsonHelper:
             with open(self.filename) as f:
                 return json.load(f)
 
-    def save(self, url_dict):
+    def save(self, content):
         with open(self.filename, "w") as f:
-            f.write(json.dumps(url_dict))
+            f.write(json.dumps(content))

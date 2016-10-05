@@ -43,6 +43,14 @@ class TimeKeeper:
             for task in project.task_list:
                 print(task.name + " " + str(task.start_time))
 
+    def get_all_tasks(self):
+        save_objects = None
+
+        return save_objects
+
+    def save_json(self):
+        pass
+
     def load_json(self):
         """loads objects from json into memory"""
         self.json = self.json_helper.get_json()
