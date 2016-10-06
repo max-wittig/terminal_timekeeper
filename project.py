@@ -24,12 +24,14 @@ class Project:
         for task in self.task_list:
             if not task_names.__contains__(task.name):
                 task_names.append(task.name)
+        task_names.sort()
+        return task_names
 
     def to_json(self):
         project = {
             "name": self.name,
             "frozen": self.frozen,
             "tags": self.tags,
-            "taskList": json.dumps(self.get_task_names())
+            "taskList": self.get_task_names()
         }
         return project

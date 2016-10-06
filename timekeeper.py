@@ -1,8 +1,5 @@
 from json_helper import *
-from task import *
 from project import *
-from datetime import datetime
-import json
 from time_helper import *
 
 
@@ -32,13 +29,6 @@ class TimeKeeper:
     def stop(self):
         if self.current_project is not None:
             self.current_project.stop()
-        self.test()
-
-    def test(self):
-        for project in self.projects:
-            print(project.name)
-            for task in project.task_list:
-                print(task.name + " " + str(task.start_time))
 
     def get_all_tasks(self):
         task_list = []
@@ -82,8 +72,8 @@ class TimeKeeper:
             for task_json in task_list_json:
                 if task_json["projectName"] == project_name:
                     task_name = task_json["taskName"]
-                    start_time = TimeHelper.get_time_in_ms(json_time=task_json["startTime"])
-                    end_time = TimeHelper.get_time_in_ms(json_time=task_json["endTime"])
+                    start_time = TimeHelper.get_time_in_s(json_time=task_json["startTime"])
+                    end_time = TimeHelper.get_time_in_s(json_time=task_json["endTime"])
                     duration = task_json["durationInSec"]
                     task_uuid = task_json["UUID"]
                     task = Task(task_name, project_name)

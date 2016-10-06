@@ -7,14 +7,13 @@ class TimeHelper:
     clock_time_format = '%H:%M:%S'
 
     @staticmethod
-    def get_time_in_ms(json_time):
+    def get_time_in_s(json_time):
         d = time.mktime(datetime.datetime.strptime(json_time, TimeHelper.input_time_format).timetuple())
-        print(int(d))
         return int(d)
 
     @staticmethod
     def get_time_string(time_in_ms):
-        return datetime.date.fromtimestamp(time_in_ms).strftime(TimeHelper.input_time_format)
+        return datetime.datetime.fromtimestamp(time_in_ms).strftime(TimeHelper.input_time_format)
 
     @staticmethod
     def get_stopwatch_time_string(time_in_ms):
