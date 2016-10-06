@@ -3,6 +3,7 @@ from task import *
 from project import *
 from datetime import datetime
 import json
+from time_helper import *
 
 
 class TimeKeeper:
@@ -13,10 +14,6 @@ class TimeKeeper:
         self.json_helper = JsonHelper(self.filename)
         self.current_project = None
         self.load_json()
-
-    def get_time_in_ms(self, json_time):
-        d = datetime.strptime(json_time, '%d.%m.%Y - %H:%M:%S')
-        return int(d.timestamp())
 
     def get_project(self, project_name):
         for project in self.projects:
@@ -85,8 +82,8 @@ class TimeKeeper:
             for task_json in task_list_json:
                 if task_json["projectName"] == project_name:
                     task_name = task_json["taskName"]
-                    start_time = self.get_time_in_ms(task_json["startTime"])
-                    end_time = self.get_time_in_ms(task_json["endTime"])
+                    start_time = TimeHelper.get_time_in_ms(json_time=task_json["startTime"])
+                    end_time = TimeHelper.get_time_in_ms(json_time=task_json["endTime"])
                     duration = task_json["durationInSec"]
                     task_uuid = task_json["UUID"]
                     task = Task(task_name, project_name)
