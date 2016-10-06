@@ -26,13 +26,11 @@ class Task:
 
     def to_json(self):
         task = {
-            "startTime": TimeHelper.get_time_string(self.start_time),
-            "endTime": TimeHelper.get_time_string(self.end_time),
             "projectName": self.project_name,
             "taskName": self.name,
-            "startTimeInSec": self.start_time,
-            "endTimeInSec": self.end_time,
-            "durationInSec": self.duration,
+            "startTime": self.start_time,
+            "endTime": self.end_time,
+            "duration": self.duration,
             "UUID": self.uuid,
         }
         return task

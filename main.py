@@ -41,7 +41,6 @@ def main():
             break
 
     timekeeper.stop()
-    timekeeper.test()
     timekeeper.save_json()
 
 if __name__ == '__main__':
