@@ -1,3 +1,6 @@
+#!/usr/bin/python3.5
+
+
 from timekeeper import *
 import argparse
 import sys
