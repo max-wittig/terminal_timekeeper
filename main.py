@@ -14,7 +14,7 @@ def get_args():
     parser.add_argument("-p", "--project", help="Which project to track")
     parser.add_argument("-t", "--task", help="Which task to track")
     parser.add_argument("-l", "--list", help="Show list of tasks", action="store_true")
-    parser.add_argument("-lc", "--listc", help="Show list of tasks", type=int)
+    parser.add_argument("-c", "--count", help="Count of lines", type=int)
     options = parser.parse_args()
     return vars(options)
 
@@ -31,13 +31,16 @@ def main():
     arg_project_name = options.get("project")
     arg_task_name = options.get("task")
     show_list = options.get("list")
-    show_listc = options.get("listc")
+    count = options.get("count")
     timekeeper = TimeKeeper()
 
-    if show_list or show_listc:
-        if show_listc is None:
-            show_listc = 30
-        timekeeper.print_table(show_listc)
+    if show_list:
+        if arg_project_name is not None:
+            pass
+        if count is None:
+            count = 30
+        timekeeper.terminal_ui_helper.print_task_table(lines=count)
+        timekeeper.terminal_ui_helper.print_project_table()
     else:
         if arg_task_name is None or arg_project_name is None:
             exit("Project and taskname are required")
@@ -56,7 +59,6 @@ def main():
                 break
 
         timekeeper.stop()
-        timekeeper.save_json()
 
 if __name__ == '__main__':
     main()
