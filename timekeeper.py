@@ -35,6 +35,9 @@ class TimeKeeper:
         for project in self.projects:
             for task in project.task_list:
                 task_list.append(task)
+
+        """sort task_list"""
+        task_list.sort(key=lambda x: x.start_time)
         return task_list
 
     def save_json(self):

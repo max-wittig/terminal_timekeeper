@@ -28,9 +28,9 @@ class Task:
         task = {
             "projectName": self.project_name,
             "taskName": self.name,
-            "startTime": self.start_time,
-            "endTime": self.end_time,
-            "duration": self.duration,
+            "startTime": TimeHelper.get_time_string(self.start_time),
+            "endTime": TimeHelper.get_time_string(self.end_time),
+            "durationInSec": self.duration,
             "UUID": self.uuid,
         }
         return task
