@@ -40,7 +40,7 @@ def main():
         if count is None:
             count = 30
         timekeeper.terminal_ui_helper.print_task_table(lines=count)
-        timekeeper.terminal_ui_helper.print_project_table()
+        #timekeeper.terminal_ui_helper.print_project_table()
     else:
         if arg_task_name is None or arg_project_name is None:
             exit("Project and taskname are required")
