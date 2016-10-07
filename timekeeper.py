@@ -1,6 +1,7 @@
 from json_helper import *
 from project import *
 from time_helper import *
+import terminaltables
 
 
 class TimeKeeper:
@@ -30,15 +31,37 @@ class TimeKeeper:
         if self.current_project is not None:
             self.current_project.stop()
 
-    def get_all_tasks(self):
+    def get_all_tasks(self, reverse=False):
         task_list = []
         for project in self.projects:
             for task in project.task_list:
                 task_list.append(task)
 
         """sort task_list"""
-        task_list.sort(key=lambda x: x.start_time)
+        task_list.sort(key=lambda x: x.start_time, reverse=reverse)
         return task_list
+
+    def print_table(self, lines):
+        table_data = [self.get_print_header()]
+        table_content = self.get_print_content(lines=lines)
+        for array in table_content:
+            table_data.append(array)
+        table = terminaltables.DoubleTable(table_data)
+        print(table.table)
+
+    def get_print_header(self):
+        return ["START_TIME", "END_TIME", "PROJECT_NAME", "TASKNAME", "DURATION"]
+
+    def get_print_content(self, lines=30):
+        i = 0
+        print_data = []
+        tasks = self.get_all_tasks(reverse=True)
+        for task in tasks:
+            i += 1
+            print_data_point = [TimeHelper.get_time_string(task.start_time), TimeHelper.get_time_string(task.end_time), task.project_name, task.name, TimeHelper.get_stopwatch_time_string(task.duration)]
+            print_data.append(print_data_point)
+            if i > lines or i == len(tasks):
+                return print_data
 
     def save_json(self):
         json_project_array = []
