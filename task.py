@@ -20,7 +20,7 @@ class Task:
         self.duration = self.end_time - self.start_time
 
     def get_run_time(self):
-        return "\r"+TimeHelper.get_stopwatch_time_string(int(time.time()) - self.start_time)
+        return "\r"+self.project_name + " : " + self.name + " - " + TimeHelper.get_stopwatch_time_string(int(time.time()) - self.start_time)
 
     def to_json(self):
         task = {
