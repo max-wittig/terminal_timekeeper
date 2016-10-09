@@ -38,9 +38,10 @@ class TimeKeeper:
 
     def get_all_tasks(self, reverse=False):
         task_list = []
-        for project in self.projects:
-            for task in project.task_list:
-                task_list.append(task)
+        if self.projects is not None:
+            for project in self.projects:
+                for task in project.task_list:
+                    task_list.append(task)
         """sort task_list"""
         task_list.sort(key=lambda x: x.start_time, reverse=reverse)
         return task_list

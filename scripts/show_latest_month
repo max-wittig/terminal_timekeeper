@@ -6,4 +6,4 @@ if [ $# -eq 0 ]
 fi
 cd ..
 month="**.`date +"%m"`"."`date +"%G"`"
-python3 main.py -l t -c 100000 | grep $1 | grep $month;
+python3 main.py -l t -c 100000 | grep $1 | grep $month

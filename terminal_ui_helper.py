@@ -38,7 +38,8 @@ class TerminalUIHelper:
 
     def get_all_project_names(self):
         project_name_list = []
-        for project in self.timekeeper.projects:
-            if self.show_frozen or not project.frozen:
-                project_name_list.append(project.name)
+        if self.timekeeper.projects is not None:
+            for project in self.timekeeper.projects:
+                if self.show_frozen or not project.frozen:
+                    project_name_list.append(project.name)
         return project_name_list
