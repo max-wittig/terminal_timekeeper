@@ -6,7 +6,7 @@ import json
 class ServerSyncHelper:
     def __init__(self):
         self.url = None
-        self.testing = True
+        self.testing = False
         self.username = None
         self.password = None
         """PHP is weird"""

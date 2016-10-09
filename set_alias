@@ -1,0 +1,3 @@
+#!/bin/bash
+alias timekeeper=./main.py
+exit
