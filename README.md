@@ -4,7 +4,8 @@ compatible with timekeeper js
 
 ###requirements  
 https://github.com/Robpol86/terminaltables  
-`sudo pip3 install terminaltables`  
+`sudo pip install terminaltables`  
+`sudo pip install requests` 
 
 ##usage  
 | Command                              |     Result                                                             |
