@@ -9,6 +9,5 @@ server_info.json
 build/
 dist/
 venv/
-setup.py
 terminal_timekeeper.egg-info/
 timekeeper2.json
