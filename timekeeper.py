@@ -41,9 +41,3 @@ class TimeKeeper:
         """sort task_list"""
         task_list.sort(key=lambda x: x.start_time, reverse=reverse)
         return task_list
-
-    def get_all_projects(self):
-        project_name_list = []
-        for project in self.projects:
-            project_name_list.append(project.name)
-        return project_name_list

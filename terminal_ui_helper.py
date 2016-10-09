@@ -5,6 +5,7 @@ from time_helper import *
 class TerminalUIHelper:
     def __init__(self, timekeeper):
         self.timekeeper = timekeeper
+        self.show_frozen = False
 
     def print_task_table(self, lines=30):
         table_data = [self.get_print_header()]
@@ -31,5 +32,12 @@ class TerminalUIHelper:
     def print_project_table(self):
         print("Projects")
         print("--------")
-        for project in self.timekeeper.get_all_projects():
+        for project in self.get_all_project_names():
             print(project)
+
+    def get_all_project_names(self):
+        project_name_list = []
+        for project in self.timekeeper.projects:
+            if self.show_frozen or not project.frozen:
+                project_name_list.append(project.name)
+        return project_name_list
