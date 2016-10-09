@@ -13,7 +13,7 @@ def get_args():
     parser.add_argument("-d", "--debug", help="Use Debug option", action='store_true')
     parser.add_argument("-p", "--project", help="Which project to track")
     parser.add_argument("-t", "--task", help="Which task to track")
-    parser.add_argument("-l", "--list", help="Show list of tasks", action="store_true")
+    parser.add_argument("-l", "--list", help="Show list --> projects || tasks")
     parser.add_argument("-c", "--count", help="Count of lines", type=int)
     options = parser.parse_args()
     return vars(options)
@@ -35,12 +35,12 @@ def main():
     timekeeper = TimeKeeper()
 
     if show_list:
-        if arg_project_name is not None:
-            pass
         if count is None:
             count = 30
-        timekeeper.terminal_ui_helper.print_task_table(lines=count)
-        #timekeeper.terminal_ui_helper.print_project_table()
+        if str(show_list).startswith("p"):
+            timekeeper.terminal_ui_helper.print_project_table()
+        elif str(show_list).startswith("t"):
+            timekeeper.terminal_ui_helper.print_task_table(lines=count)
     else:
         if arg_task_name is None or arg_project_name is None:
             exit("Project and taskname are required")

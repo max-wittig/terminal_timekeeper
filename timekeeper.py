@@ -29,6 +29,7 @@ class TimeKeeper:
     def stop(self):
         if self.current_project is not None:
             self.current_project.stop()
+            self.projects.sort(key=lambda x: str(x.name).upper())
             self.json_helper.save_json(self)
             self.terminal_ui_helper.print_task_table(lines=5)
 
