@@ -15,7 +15,7 @@ class TerminalUIHelper:
         print(table.table)
 
     def get_print_header(self):
-        return ["START_TIME", "END_TIME", "PROJECT_NAME", "TASKNAME", "DURATION"]
+        return ["START_TIME", "END_TIME", "PROJECT_NAME", "TASK_NAME", "DURATION"]
 
     def get_print_content(self, lines=30):
         i = 1

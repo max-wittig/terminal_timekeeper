@@ -51,13 +51,13 @@ def main():
         input_thread = threading.Thread(target=input_thread_fkt, args=(w, ))
         input_thread.start()
         while True:
-            sys.stdout.write(timekeeper.current_project.current_task.get_run_time())
-            sys.stdout.flush()
-            time.sleep(1)
-            if w:
-                input_thread.join()
-                break
-
+            if timekeeper.current_project is not None:
+                sys.stdout.write(timekeeper.current_project.current_task.get_run_time())
+                sys.stdout.flush()
+                time.sleep(1)
+                if w:
+                    input_thread.join()
+                    break
         timekeeper.stop()
 
 if __name__ == '__main__':

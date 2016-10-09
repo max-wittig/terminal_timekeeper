@@ -1,12 +1,14 @@
 import os
 from project import *
 import json
+from server_sync_helper import *
 
 
 class JsonHelper:
     def __init__(self, filename):
         self.filename = filename
         self.json = None
+        self.server_sync_helper = ServerSyncHelper()
 
     def get_json(self):
         if os.path.isfile(self.filename):
@@ -33,6 +35,7 @@ class JsonHelper:
             "saveObjectArray": json_task_array
         }
         self.save(save_object)
+        self.server_sync_helper.save(save_object)
 
     def get_projects_from_json(self):
         """loads objects from json into memory"""

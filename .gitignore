@@ -5,3 +5,4 @@ terminal_timekeeper.iml
 timekeeper.json
 __pycache__/
 /test.json
+server_info.json
