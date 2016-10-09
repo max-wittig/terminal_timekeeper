@@ -1,4 +1,9 @@
 #!/bin/bash
+if [ $# -eq 0 ]
+    then
+    echo "No project argument given!"
+    exit 0
+fi
 cd ..
 month="**.`date +"%m"`"."`date +"%G"`"
-python3 main.py -l t -c 100000 | grep $1 | grep $month
+python3 main.py -l t -c 100000 | grep $1 | grep $month;
