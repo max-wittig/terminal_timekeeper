@@ -1,0 +1,7 @@
+#!/bin/bash
+#copy this to /bin/ or to /usr/bin/ --> call it with timekeeper from anywhere
+cd ~/Documents/Development/Python/terminal_timekeeper/
+python3 __main__.py $@
+cd -
+exit
+
