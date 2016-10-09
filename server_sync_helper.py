@@ -35,4 +35,7 @@ class ServerSyncHelper:
 
     def save(self, save_object):
         json_string = json.dumps(save_object)
-        requests.post(self.url, self.get_data(json_string))
+        try:
+            requests.post(self.url, self.get_data(json_string))
+        except:
+            print("Couldn't reach server!")

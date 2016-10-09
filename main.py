@@ -49,6 +49,7 @@ def main():
         thread.start()
 
         input_thread = threading.Thread(target=input_thread_fkt, args=(w, ))
+        input_thread.setDaemon(True)
         input_thread.start()
         while True:
             if timekeeper.current_project is not None:
