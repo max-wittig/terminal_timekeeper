@@ -13,15 +13,18 @@ class TimeKeeper:
 
     """get project object from array_list with name x"""
     def get_project(self, project_name):
-        for project in self.projects:
-            if project_name == project.name:
-                return project
+        if self.projects is not None:
+            for project in self.projects:
+                if project_name == project.name:
+                    return project
         return None
 
     def start(self, project_name, task_name):
         project = self.get_project(project_name)
         if project is None:
             project = Project(project_name)
+            if self.projects is None:
+                self.projects = []
             self.projects.append(project)
         project.start(task_name)
         self.current_project = project

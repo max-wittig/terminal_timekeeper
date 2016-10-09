@@ -40,6 +40,8 @@ class JsonHelper:
     def get_projects_from_json(self):
         """loads objects from json into memory"""
         self.json = self.get_json()
+        if self.json is None:
+            return
         projects = []
         projects_json = self.json["saveProjectArray"]
         """all tasks from all projects"""

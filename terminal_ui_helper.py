@@ -10,16 +10,17 @@ class TerminalUIHelper:
     def print_task_table(self, lines=30):
         table_data = [self.get_print_header()]
         table_content = self.get_print_content(lines=lines)
-        for array in table_content:
-            table_data.append(array)
-        table = terminaltables.DoubleTable(table_data)
-        print(table.table)
+        if table_content is not None:
+            for array in table_content:
+                table_data.append(array)
+            table = terminaltables.DoubleTable(table_data)
+            print(table.table)
 
     def get_print_header(self):
         return ["START_TIME", "END_TIME", "PROJECT_NAME", "TASK_NAME", "DURATION"]
 
     def get_print_content(self, lines=30):
-        i = 1
+        i = 0
         print_data = []
         all_tasks = self.timekeeper.get_all_tasks(reverse=True)
         for task in all_tasks:
