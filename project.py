@@ -6,7 +6,7 @@ class Project:
         self.name = name
         self.task_list = []
         self.frozen = False
-        self.tags = None
+        self.tags = []
         self.current_task = None
 
     def start(self, task_name):

@@ -62,3 +62,12 @@ class TimeKeeper:
                     selected_project.remove_task(task_name)
                     print("removed " + task_name + " from " + project_name)
             self.save()
+
+    def add(self, parameter):
+        project_name = parameter[0]
+        if project_name is not None:
+            add_project = self.get_project(project_name)
+            for tag in parameter:
+                if tag != project_name:
+                    add_project.tags.append(tag)
+                    self.save()

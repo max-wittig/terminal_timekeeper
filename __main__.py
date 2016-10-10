@@ -1,4 +1,4 @@
-#!/usr/bin/python3.5
+#!/usr/bin/python3
 
 
 from timekeeper import *
@@ -16,6 +16,7 @@ def get_args():
     parser.add_argument("-l", "--list", help="Show list --> projects || tasks")
     parser.add_argument("-c", "--count", help="Count of lines", type=int)
     parser.add_argument("-r", "--remove", help="timekeeper -r <t|p> name", nargs="+")
+    parser.add_argument("-a", "--add", help="timekeeper -a tags|task <project_name> <tagnames> <tag n>", nargs="+")
     options = parser.parse_args()
     return vars(options)
 
@@ -34,9 +35,13 @@ def main():
     show_list = options.get("list")
     count = options.get("count")
     remove = options.get("remove")
+    add = options.get("add")
     timekeeper = TimeKeeper()
 
-    if remove:
+    if add:
+        timekeeper.add(add)
+        pass
+    elif remove:
         delete_project = None
         delete_task = None
         try:
@@ -46,7 +51,6 @@ def main():
             pass
         finally:
             timekeeper.remove(delete_project, delete_task)
-
     elif show_list:
         if count is None:
             count = 30
