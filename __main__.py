@@ -15,6 +15,7 @@ def get_args():
     parser.add_argument("-t", "--task", help="Which task to track")
     parser.add_argument("-l", "--list", help="Show list --> projects || tasks")
     parser.add_argument("-c", "--count", help="Count of lines", type=int)
+    parser.add_argument("-r", "--remove", help="timekeeper -r <t|p> name", nargs="+")
     options = parser.parse_args()
     return vars(options)
 
@@ -32,9 +33,21 @@ def main():
     arg_task_name = options.get("task")
     show_list = options.get("list")
     count = options.get("count")
+    remove = options.get("remove")
     timekeeper = TimeKeeper()
 
-    if show_list:
+    if remove:
+        delete_project = None
+        delete_task = None
+        try:
+            delete_project = remove[0]
+            delete_task = remove[1]
+        except IndexError:
+            pass
+        finally:
+            timekeeper.remove(delete_project, delete_task)
+
+    elif show_list:
         if count is None:
             count = 30
         if str(show_list).startswith("p"):

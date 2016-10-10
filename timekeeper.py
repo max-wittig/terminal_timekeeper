@@ -33,8 +33,11 @@ class TimeKeeper:
         if self.current_project is not None:
             self.current_project.stop()
             self.projects.sort(key=lambda x: str(x.name).upper())
-            self.json_helper.save_json(self)
-            self.terminal_ui_helper.print_task_table(lines=5)
+            self.save()
+
+    def save(self):
+        self.json_helper.save_json(self)
+        self.terminal_ui_helper.print_task_table(lines=5)
 
     def get_all_tasks(self, reverse=False):
         task_list = []
@@ -45,3 +48,16 @@ class TimeKeeper:
         """sort task_list"""
         task_list.sort(key=lambda x: x.start_time, reverse=reverse)
         return task_list
+
+    def remove(self, project_name, task_name=None):
+        if project_name is not None:
+            selected_project = self.get_project(project_name)
+            if task_name is None:
+                """remove whole project with all tasks"""
+                self.projects.remove(selected_project)
+                print("removed " + project_name)
+            else:
+                """taskName is something"""
+                selected_project.remove_task(task_name)
+                print("removed " + task_name + " from " + project_name)
+        self.save()

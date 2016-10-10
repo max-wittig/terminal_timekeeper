@@ -1,5 +1,3 @@
-
-.gitignore
 .idea/
 terminal_timekeeper.iml
 timekeeper.json
@@ -12,3 +10,4 @@ venv/
 terminal_timekeeper.egg-info/
 timekeeper2.json
 timekeeper.sh
+timekeeper (copy).json

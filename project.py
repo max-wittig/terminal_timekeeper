@@ -26,6 +26,12 @@ class Project:
         task_names.sort()
         return task_names
 
+    def remove_task(self, task_name):
+        for task in self.task_list:
+            if task.name == task_name:
+                self.task_list.remove(task)
+                break
+
     def to_json(self):
         project = {
             "name": self.name,
