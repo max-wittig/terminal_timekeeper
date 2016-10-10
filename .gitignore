@@ -11,3 +11,4 @@ dist/
 venv/
 terminal_timekeeper.egg-info/
 timekeeper2.json
+timekeeper.sh

@@ -17,7 +17,7 @@ class TerminalUIHelper:
             print(table.table)
 
     def get_print_header(self):
-        return ["START_TIME", "END_TIME", "PROJECT_NAME", "TASK_NAME", "DURATION"]
+        return ["WEEKDAY", "START_TIME", "END_TIME", "PROJECT_NAME", "TASK_NAME", "DURATION"]
 
     def get_print_content(self, lines=30):
         i = 0
@@ -25,7 +25,7 @@ class TerminalUIHelper:
         all_tasks = self.timekeeper.get_all_tasks(reverse=True)
         for task in all_tasks:
             i += 1
-            print_data_point = [TimeHelper.get_time_string(task.start_time), TimeHelper.get_time_string(task.end_time), task.project_name, task.name, TimeHelper.get_stopwatch_time_string(task.duration)]
+            print_data_point = [TimeHelper.get_weekday(task.start_time), TimeHelper.get_time_string(task.start_time), TimeHelper.get_time_string(task.end_time), task.project_name, task.name, TimeHelper.get_stopwatch_time_string(task.duration)]
             print_data.append(print_data_point)
             if i > lines or i == len(all_tasks):
                 return print_data
