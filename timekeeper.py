@@ -52,12 +52,13 @@ class TimeKeeper:
     def remove(self, project_name, task_name=None):
         if project_name is not None:
             selected_project = self.get_project(project_name)
-            if task_name is None:
-                """remove whole project with all tasks"""
-                self.projects.remove(selected_project)
-                print("removed " + project_name)
-            else:
-                """taskName is something"""
-                selected_project.remove_task(task_name)
-                print("removed " + task_name + " from " + project_name)
-        self.save()
+            if selected_project is not None:
+                if task_name is None:
+                    """remove whole project with all tasks"""
+                    self.projects.remove(selected_project)
+                    print("removed " + project_name)
+                else:
+                    """taskName is something, do not remove whole project--> only selected task"""
+                    selected_project.remove_task(task_name)
+                    print("removed " + task_name + " from " + project_name)
+            self.save()
