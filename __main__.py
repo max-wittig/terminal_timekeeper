@@ -53,7 +53,7 @@ def main():
             timekeeper.remove(delete_project, delete_task)
     elif show_list:
         if count is None:
-            count = 30
+            count = 15
         if str(show_list).startswith("p"):
             timekeeper.terminal_ui_helper.print_project_table()
         elif str(show_list).startswith("t"):

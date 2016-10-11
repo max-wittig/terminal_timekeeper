@@ -7,16 +7,17 @@ from server_sync_helper import *
 class JsonHelper:
     def __init__(self, filename):
         self.filename = filename
+        self.file = os.path.join(os.path.dirname(os.path.realpath(__file__)), self.filename)
         self.json = None
         self.server_sync_helper = ServerSyncHelper()
 
     def get_json(self):
-        if os.path.isfile(self.filename):
-            with open(self.filename) as f:
+        if os.path.isfile(self.file):
+            with open(self.file) as f:
                 return json.load(f)
 
     def save(self, content):
-        with open(self.filename, "w") as f:
+        with open(self.file, "w") as f:
             f.write(json.dumps(content, sort_keys=True, indent=4))
 
     def save_json(self, timekeeper):
