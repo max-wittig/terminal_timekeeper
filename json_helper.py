@@ -54,7 +54,8 @@ class JsonHelper:
                 project.frozen = current_project_json["frozen"]
                 project.tags = current_project_json["tags"]
             except KeyError:
-                pass
+                project.frozen = False
+                project.tags = []
             for task_json in task_list_json:
                 if task_json["projectName"] == project_name:
                     task_name = task_json["taskName"]

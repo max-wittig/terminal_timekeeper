@@ -12,11 +12,15 @@ def get_args():
     parser = argparse.ArgumentParser("A timekeeper")
     parser.add_argument("-d", "--debug", help="Use Debug option", action='store_true')
     parser.add_argument("-p", "--project", help="Which project to track")
-    parser.add_argument("-t", "--task", help="Which task to track")
+    parser.add_argument("-t", "--task", help="Which task to track", nargs="+")
     parser.add_argument("-l", "--list", help="Show list --> projects || tasks")
     parser.add_argument("-c", "--count", help="Count of lines", type=int)
-    parser.add_argument("-r", "--remove", help="timekeeper -r <t|p> name", nargs="+")
-    parser.add_argument("-a", "--add", help="timekeeper -a tags|task <project_name> <tagnames> <tag n>", nargs="+")
+    parser.add_argument("-r", "--remove", help="timekeeper -r <task|tag> <project> <task_name|tag_name>", nargs="+")
+    parser.add_argument("-a", "--add",
+                        help="timekeeper -a <task|tag> <project_name> <tagname|taskname> "
+                             "<start_time> <end_time>", nargs="+")
+    parser.add_argument("-fu", "--force_upload", action="store_true")
+    parser.add_argument("-fd", "--force_download", action="store_true")
     options = parser.parse_args()
     return vars(options)
 
@@ -31,26 +35,27 @@ def main():
     options = get_args()
     debug_enabled = options.get("debug")
     arg_project_name = options.get("project")
+    if isinstance(arg_project_name, list):
+        arg_project_name = ' '.join(arg_project_name)
     arg_task_name = options.get("task")
+    if isinstance(arg_task_name, list):
+        arg_task_name = ' '.join(arg_task_name)
     show_list = options.get("list")
     count = options.get("count")
     remove = options.get("remove")
     add = options.get("add")
+    force_upload = options.get("force_upload")
+    force_download = options.get("force_download")
     timekeeper = TimeKeeper()
 
-    if add:
-        timekeeper.add(add)
+    if force_download:
         pass
+    elif force_upload:
+        timekeeper.save()
+    elif add:
+        timekeeper.add(add)
     elif remove:
-        delete_project = None
-        delete_task = None
-        try:
-            delete_project = remove[0]
-            delete_task = remove[1]
-        except IndexError:
-            pass
-        finally:
-            timekeeper.remove(delete_project, delete_task)
+        timekeeper.remove(remove)
     elif show_list:
         if count is None:
             count = 15

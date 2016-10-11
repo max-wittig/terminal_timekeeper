@@ -11,9 +11,12 @@ class Task:
         self.duration = None
         self.uuid = None
 
+    def generate_uuid(self):
+        self.uuid = str(uuid.uuid4())
+
     def start(self):
         self.start_time = int(time.time())
-        self.uuid = str(uuid.uuid4())
+        self.generate_uuid()
 
     def stop(self):
         self.end_time = int(time.time())

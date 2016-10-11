@@ -49,25 +49,61 @@ class TimeKeeper:
         task_list.sort(key=lambda x: x.start_time, reverse=reverse)
         return task_list
 
-    def remove(self, project_name, task_name=None):
-        if project_name is not None:
-            selected_project = self.get_project(project_name)
+    def remove(self, remove):
+        try:
+            """tag or task"""
+            remove_type = remove[0]
+            delete_project = remove[1]
+            selected_project = self.get_project(delete_project)
             if selected_project is not None:
-                if task_name is None:
-                    """remove whole project with all tasks"""
-                    self.projects.remove(selected_project)
-                    print("removed " + project_name)
-                else:
-                    """taskName is something, do not remove whole project--> only selected task"""
-                    selected_project.remove_task(task_name)
-                    print("removed " + task_name + " from " + project_name)
+                if str(remove_type).startswith("task"):
+                    try:
+                        delete_task = remove[2]
+                    except IndexError:
+                        delete_task = None
+
+                    if delete_task is None:
+                            """remove whole project with all tasks"""
+                            self.projects.remove(selected_project)
+                            print("removed " + delete_project)
+                    else:
+                        """taskName is something, do not remove whole project--> only selected task"""
+                        selected_project.remove_task(delete_task)
+                        print("removed " + delete_task + " from " + delete_project)
+
+                elif str(remove_type).startswith("tag"):
+                    delete_tag = remove[2]
+                    if delete_tag in selected_project.tags:
+                        selected_project.tags.remove(delete_tag)
             self.save()
+        except IndexError:
+            print("IndexError")
 
     def add(self, parameter):
-        project_name = parameter[0]
-        if project_name is not None:
-            add_project = self.get_project(project_name)
-            for tag in parameter:
-                if tag != project_name:
-                    add_project.tags.append(tag)
-                    self.save()
+        try:
+            add_type = parameter[0]
+            project_name = parameter[1]
+
+            if project_name is not None:
+                add_project = self.get_project(project_name)
+                if add_project is not None:
+                    if str(add_type).startswith("tag"):
+                        for tag in parameter:
+                            if tag != project_name and tag != "tag":
+                                if add_project.tags is None:
+                                    add_project.tags = []
+                                if not add_project.tags.__contains__(tag):
+                                    add_project.tags.append(tag)
+                    elif str(add_type).startswith("task"):
+                        task_name = parameter[2]
+                        start_time = parameter[3]
+                        end_time = parameter[4]
+                        task = Task(task_name, project_name)
+                        task.start_time = int(start_time)
+                        task.end_time = int(end_time)
+                        task.duration = int(end_time)-int(start_time)
+                        task.generate_uuid()
+                        add_project.task_list.append(task)
+            self.save()
+        except IndexError:
+            print("Missing parameters!")
