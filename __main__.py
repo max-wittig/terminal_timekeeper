@@ -49,6 +49,7 @@ def main():
     timekeeper = TimeKeeper()
 
     if force_download:
+        timekeeper.json_helper.server_sync_helper.download_from_server()
         pass
     elif force_upload:
         timekeeper.save()

@@ -9,7 +9,7 @@ class JsonHelper:
         self.filename = filename
         self.file = os.path.join(os.path.dirname(os.path.realpath(__file__)), self.filename)
         self.json = None
-        self.server_sync_helper = ServerSyncHelper()
+        self.server_sync_helper = ServerSyncHelper(self)
 
     def get_json(self):
         if os.path.isfile(self.file):
@@ -19,6 +19,10 @@ class JsonHelper:
     def save(self, content):
         with open(self.file, "w") as f:
             f.write(json.dumps(content, sort_keys=True, indent=4))
+
+    def save_raw(self, content):
+        with open(self.file, "w") as f:
+            f.write(content)
 
     def save_json(self, timekeeper):
         json_project_array = []
