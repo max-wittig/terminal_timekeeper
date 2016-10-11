@@ -12,14 +12,15 @@ class ServerSyncHelper:
         """PHP is weird"""
         self.complete = "true"
         self.filename = "server_info.json"
+        self.file = os.path.join(os.path.dirname(os.path.realpath(__file__)), self.filename)
         self.parse_server_info()
 
     def parse_server_info(self):
         """because my server address is secret"""
         if self.testing:
             self.filename = "server_info_testing.json"
-        if os.path.isfile(self.filename):
-            with open(self.filename) as f:
+        if os.path.isfile(self.file):
+            with open(self.file) as f:
                 json_content = json.load(f)
                 self.url = json_content["url"]
                 self.username = json_content["username"],
