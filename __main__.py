@@ -6,6 +6,7 @@ import argparse
 import sys
 import time
 import threading
+import subprocess
 
 
 def get_args():
@@ -21,6 +22,7 @@ def get_args():
                              "<start_time> <end_time>", nargs="+")
     parser.add_argument("-fu", "--force_upload", action="store_true")
     parser.add_argument("-fd", "--force_download", action="store_true")
+    parser.add_argument("-s", "--script", help="Run script from folder", nargs="+")
     options = parser.parse_args()
     return vars(options)
 
@@ -46,11 +48,19 @@ def main():
     add = options.get("add")
     force_upload = options.get("force_upload")
     force_download = options.get("force_download")
+    script = options.get("script")
     timekeeper = TimeKeeper()
 
-    if force_download:
+    if script:
+        print(os.path.join(os.path.dirname(os.path.realpath(__file__))))
+        command = os.path.join(os.path.dirname(os.path.realpath(__file__)), "scripts", script[0])
+        """add all arguments"""
+        for current_script in script:
+            if current_script != script[0]:
+                command += " " + current_script
+        os.system(command)
+    elif force_download:
         timekeeper.json_helper.server_sync_helper.download_from_server()
-        pass
     elif force_upload:
         timekeeper.save()
     elif add:
