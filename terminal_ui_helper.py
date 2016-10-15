@@ -1,5 +1,6 @@
 import terminaltables
 from time_helper import *
+from time_helper import *
 
 
 class TerminalUIHelper:
@@ -31,10 +32,20 @@ class TerminalUIHelper:
                 return print_data
 
     def print_project_table(self):
-        print("Projects")
-        print("--------")
-        for project in self.get_all_project_names():
-            print(project)
+        print_data = [["PROJECT_NAME", "TOTAL_TIME"]]
+        project_time_dict = self.get_project_time_dict()
+        for current_project_name in project_time_dict.keys():
+            project_data = [current_project_name, TimeHelper.get_stopwatch_time_string(project_time_dict[current_project_name])]
+            print_data.append(project_data)
+        table = terminaltables.DoubleTable(print_data)
+        print(table.table)
+
+    def get_project_time_dict(self):
+        project_data_time = dict()
+        for current_project_name in self.get_all_project_names():
+            current_project = self.timekeeper.get_project(current_project_name)
+            project_data_time[current_project_name] = current_project.get_total_project_time()
+        return project_data_time
 
     def get_all_project_names(self):
         project_name_list = []

@@ -32,6 +32,12 @@ class Project:
                 self.task_list.remove(task)
                 break
 
+    def get_total_project_time(self):
+        total_time = 0
+        for current_task in self.task_list:
+            total_time += current_task.duration
+        return total_time
+
     def to_json(self):
         project = {
             "name": self.name,
