@@ -52,7 +52,6 @@ def main():
     timekeeper = TimeKeeper()
 
     if script:
-        print(os.path.join(os.path.dirname(os.path.realpath(__file__))))
         command = os.path.join(os.path.dirname(os.path.realpath(__file__)), "scripts", script[0])
         """add all arguments"""
         for current_script in script:
