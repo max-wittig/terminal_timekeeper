@@ -7,7 +7,11 @@ setup(
     data_files=['server_info.json'],
     url='',
     license='',
-    author='spaghettic0der',
+    author='max-wittig',
+    install_requires=[
+        'requests',
+        'terminaltables',
+      ],
     author_email='',
     description=''
 )
