@@ -35,7 +35,8 @@ class TerminalUIHelper:
         print_data = [["PROJECT_NAME", "TOTAL_TIME"]]
         project_time_dict = self.get_project_time_dict()
         for current_project_name in project_time_dict.keys():
-            project_data = [current_project_name, TimeHelper.get_stopwatch_time_string(project_time_dict[current_project_name])]
+            project_data = [current_project_name,
+                            TimeHelper.get_stopwatch_time_string(project_time_dict[current_project_name])]
             print_data.append(project_data)
         table = terminaltables.DoubleTable(print_data)
         print(table.table)

@@ -18,7 +18,8 @@ class TimeHelper:
 
     @staticmethod
     def get_stopwatch_time_string(time_in_ms):
-        return str(time.strftime(TimeHelper.clock_time_format, time.gmtime(time_in_ms)))
+        #return str(time.strftime(TimeHelper.clock_time_format, time.gmtime(time_in_ms)))
+        return str(datetime.timedelta(seconds=time_in_ms))
 
     @staticmethod
     def get_weekday(time_in_ms):
