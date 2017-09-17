@@ -13,7 +13,7 @@ class ServerSyncHelper:
         """PHP is weird"""
         self.complete = "true"
         self.filename = "server_info.json"
-        self.file = os.path.join(os.path.dirname(os.path.realpath(__file__)), self.filename)
+        self.file = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), self.filename)
         self.parse_server_info()
 
     def parse_server_info(self):

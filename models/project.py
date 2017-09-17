@@ -1,4 +1,4 @@
-from task import *
+from models.task import Task
 
 
 class Project:

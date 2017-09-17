@@ -1,6 +1,6 @@
 import terminaltables
-from time_helper import *
-from time_helper import *
+
+from helper.time_helper import TimeHelper
 
 
 class TerminalUIHelper:
@@ -26,7 +26,9 @@ class TerminalUIHelper:
         all_tasks = self.timekeeper.get_all_tasks(reverse=True)
         for task in all_tasks:
             i += 1
-            print_data_point = [TimeHelper.get_weekday(task.start_time), TimeHelper.get_time_string(task.start_time), TimeHelper.get_time_string(task.end_time), task.project_name, task.name, TimeHelper.get_stopwatch_time_string(task.duration)]
+            print_data_point = [TimeHelper.get_weekday(task.start_time), TimeHelper.get_time_string(task.start_time),
+                                TimeHelper.get_time_string(task.end_time), task.project_name, task.name,
+                                TimeHelper.get_stopwatch_time_string(task.duration)]
             print_data.append(print_data_point)
             if i > lines or i == len(all_tasks):
                 return print_data

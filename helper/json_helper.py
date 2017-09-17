@@ -1,13 +1,15 @@
 import os
-from project import *
 import json
-from server_sync_helper import *
+from helper.server_sync_helper import ServerSyncHelper
+from helper.time_helper import TimeHelper
+from models.project import Project
+from models.task import Task
 
 
 class JsonHelper:
     def __init__(self, filename):
         self.filename = filename
-        self.file = os.path.join(os.path.dirname(os.path.realpath(__file__)), self.filename)
+        self.file = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), self.filename)
         self.json = None
         self.server_sync_helper = ServerSyncHelper(self)
 

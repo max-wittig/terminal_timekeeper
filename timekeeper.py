@@ -1,18 +1,20 @@
-from json_helper import *
-from project import *
-from terminal_ui_helper import *
+from helper.json_helper import JsonHelper
+from helper.terminal_ui_helper import TerminalUIHelper
+from models.project import Project
+from models.task import Task
 
 
 class TimeKeeper:
     def __init__(self):
+        """Timekeeper class"""
         self.terminal_ui_helper = TerminalUIHelper(self)
         self.filename = "timekeeper.json"
         self.json_helper = JsonHelper(self.filename)
         self.projects = self.json_helper.get_projects_from_json()
         self.current_project = None
 
-    """get project object from array_list with name x"""
     def get_project(self, project_name):
+        """get project object from array_list with name x"""
         if self.projects is not None:
             for project in self.projects:
                 if project_name == project.name:
@@ -20,6 +22,7 @@ class TimeKeeper:
         return None
 
     def start(self, project_name, task_name):
+        """starts a new timekeeper task"""
         project = self.get_project(project_name)
         if project is None:
             project = Project(project_name)
@@ -30,16 +33,19 @@ class TimeKeeper:
         self.current_project = project
 
     def stop(self):
+        """stops the current timer"""
         if self.current_project is not None:
             self.current_project.stop()
             self.projects.sort(key=lambda x: str(x.name).upper())
             self.save()
 
     def save(self):
+        """saves the timekeeper task"""
         self.json_helper.save_json(self)
         self.terminal_ui_helper.print_task_table(lines=5)
 
     def get_all_tasks(self, reverse=False):
+        """returns all tasks"""
         task_list = []
         if self.projects is not None:
             for project in self.projects:
@@ -50,6 +56,7 @@ class TimeKeeper:
         return task_list
 
     def remove(self, remove):
+        """removes timekeeper task or project from list"""
         try:
             """tag or task"""
             remove_type = remove[0]
@@ -80,6 +87,7 @@ class TimeKeeper:
             print("IndexError")
 
     def add(self, parameter):
+        """adds timekeeper task or tag"""
         try:
             add_type = parameter[0]
             project_name = parameter[1]
@@ -92,7 +100,7 @@ class TimeKeeper:
                             if tag != project_name and tag != "tag":
                                 if add_project.tags is None:
                                     add_project.tags = []
-                                if not add_project.tags.__contains__(tag):
+                                if tag not in add_project.tags:
                                     add_project.tags.append(tag)
                     elif str(add_type).startswith("task"):
                         task_name = parameter[2]
