@@ -2,12 +2,7 @@
 terminal_timekeeper.iml
 timekeeper.json
 __pycache__/
-/test.json
 server_info.json
 build/
 dist/
 venv/
-terminal_timekeeper.egg-info/
-timekeeper2.json
-timekeeper.sh
-timekeeper (copy).json

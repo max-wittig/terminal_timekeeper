@@ -1,9 +1,12 @@
 import uuid
-from time_helper import *
+import time
+
+from helper.time_helper import TimeHelper
 
 
 class Task:
     def __init__(self, name, project_name):
+        """model class for a task"""
         self.name = name
         self.project_name = project_name
         self.start_time = None
@@ -23,7 +26,8 @@ class Task:
         self.duration = self.end_time - self.start_time
 
     def get_run_time(self):
-        return "\r"+self.project_name + " : " + self.name + " - " + TimeHelper.get_stopwatch_time_string(int(time.time()) - self.start_time)
+        return "\r{0} : {1} - {2}".format(self.project_name, self.name,
+                                          TimeHelper.get_stopwatch_time_string(int(time.time()) - self.start_time))
 
     def to_json(self):
         task = {

@@ -1,17 +1,16 @@
-#!/usr/bin/python3
+#!venv/bin/python3
 
 
-from timekeeper import *
+from timekeeper import TimeKeeper
 import argparse
+import os
 import sys
 import time
 import threading
-import subprocess
 
 
 def get_args():
     parser = argparse.ArgumentParser("A timekeeper")
-    parser.add_argument("-d", "--debug", help="Use Debug option", action='store_true')
     parser.add_argument("-p", "--project", help="Which project to track")
     parser.add_argument("-t", "--task", help="Which task to track", nargs="+")
     parser.add_argument("-l", "--list", help="Show list --> projects || tasks")
@@ -35,7 +34,6 @@ def input_thread_fkt(w):
 def main():
     w = []
     options = get_args()
-    debug_enabled = options.get("debug")
     arg_project_name = options.get("project")
     if isinstance(arg_project_name, list):
         arg_project_name = ' '.join(arg_project_name)
@@ -92,6 +90,7 @@ def main():
                     input_thread.join()
                     break
         timekeeper.stop()
+
 
 if __name__ == '__main__':
     main()
