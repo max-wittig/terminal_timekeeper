@@ -74,6 +74,10 @@ def main():
     else:
         if arg_task_name is None or arg_project_name is None:
             exit("Project and taskname are required")
+
+        """Always sync with server, before new task starts"""
+        timekeeper.json_helper.server_sync_helper.download_from_server()
+        timekeeper = TimeKeeper()
         thread = threading.Thread(target=timekeeper.start, args=(arg_project_name, arg_task_name))
         thread.setDaemon(True)
         thread.start()

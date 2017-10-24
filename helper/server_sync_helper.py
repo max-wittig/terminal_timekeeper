@@ -1,6 +1,7 @@
 import requests
 import os
 import json
+from requests.exceptions import RequestException
 
 
 class ServerSyncHelper:
@@ -45,12 +46,12 @@ class ServerSyncHelper:
         json_string = json.dumps(save_object)
         try:
             requests.post(self.url, self.get_upload_data(json_string))
-        except:
+        except RequestException:
             print("Couldn't reach server!")
 
     def download_from_server(self):
         try:
             data = requests.post(self.url, self.get_download_data())
             self.json_helper.save_raw(data.text)
-        except:
+        except RequestException:
             print("Couldn't reach server!")
